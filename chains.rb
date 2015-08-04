@@ -34,3 +34,4 @@ puts "result = #{result}"
 # 4. Using a Set instead of an Array for Dictionary.words
 # 5. Using an exponent of 1 instead of 2 in distance_between
 # 6. Providing different exponents for estimate_distance and distance_between
+# 7. Storing a dictionary as chars instead of strings

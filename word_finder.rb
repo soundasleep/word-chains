@@ -43,10 +43,8 @@ class WordFinder < AStar
 
   def neighbours(word)
     @dictionary.words.select do |w|
-      w != word && characters_in_common(word, w) == word.length - 1
+        w != word && characters_in_common(word, w) == word.length - 1
     end
   end
-
-  private
 
 end
