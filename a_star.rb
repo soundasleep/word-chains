@@ -16,7 +16,7 @@ class AStar
     f_score[start] = h_score[start]
 
     while open_set.any? do
-      current = lowest_node(open_set, f_score)
+      current = open_set.min_by { |n| f_score[n] }
 
       if current == goal
         return reconstruct_path(came_from, goal)
@@ -43,10 +43,6 @@ class AStar
     end
 
     fail "Could not find a path"
-  end
-
-  def lowest_node(set, scores)
-    set.min_by { |n| scores[n] }
   end
 
   def reconstruct_path(came_from, current_node)
