@@ -1,6 +1,7 @@
 class WordFinder < AStar
   def initialize(dictionary)
     @dictionary = dictionary
+    @length = @dictionary.words[0].length
   end
 
   def estimate_distance(start, goal)
@@ -8,11 +9,31 @@ class WordFinder < AStar
   end
 
   def distance_between(a, b)
-    1 / ((1 + characters_in_common(a, b)) ** 2)
+    return 1 / (1 + (characters_in_common(a, b) ** 2))
   end
 
   def characters_in_common(a, b)
-    # the number of characters in common
+    if @length == 3
+      (a[0] == b[0] ? 1 : 0) +
+        (a[1] == b[1] ? 1 : 0) +
+        (a[2] == b[2] ? 1 : 0)
+    elsif @length == 4
+      (a[0] == b[0] ? 1 : 0) +
+        (a[1] == b[1] ? 1 : 0) +
+        (a[2] == b[2] ? 1 : 0) +
+        (a[3] == b[3] ? 1 : 0)
+    elsif @length == 5
+      (a[0] == b[0] ? 1 : 0) +
+        (a[1] == b[1] ? 1 : 0) +
+        (a[2] == b[2] ? 1 : 0) +
+        (a[3] == b[3] ? 1 : 0) +
+        (a[4] == b[4] ? 1 : 0)
+    else
+      remaining_characters_in_common(a, b)
+    end
+  end
+
+  def remaining_characters_in_common(a, b)
     sum = 0
     (0...a.length).each do |n|
       sum += 1 if a[n] == b[n]
@@ -25,4 +46,7 @@ class WordFinder < AStar
       w != word && characters_in_common(word, w) == word.length - 1
     end
   end
+
+  private
+
 end
