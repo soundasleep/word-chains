@@ -1,8 +1,13 @@
 require "set"
 
 class AStar
+  attr_reader :start, :goal
+
   # based on https://en.wikipedia.org/wiki/A%2a_search_algorithm#Pseudocode
   def a_star(start, goal)
+    @start = start
+    @goal = goal
+
     closed_set = Set.new
     open_set = Set.new([start])
     came_from = {}
