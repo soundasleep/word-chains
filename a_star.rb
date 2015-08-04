@@ -1,8 +1,10 @@
+require "set"
+
 class AStar
   # based on https://en.wikipedia.org/wiki/A%2a_search_algorithm#Pseudocode
   def a_star(start, goal)
-    closed_set = []
-    open_set = [ start ]
+    closed_set = Set.new
+    open_set = Set.new([start])
     came_from = {}
 
     g_score = {}
@@ -20,7 +22,7 @@ class AStar
         return reconstruct_path(came_from, goal)
       end
 
-      open_set -= [current]
+      open_set.delete current
       closed_set << current
 
       neighbours(current).each do |neighbour|
