@@ -16,20 +16,38 @@ if start_word.length != end_word.length
 end
 
 def find_path(start_word, end_word)
-  (start_word.length - 1).downto(1).each do |minimum_match|
-    puts "trying #{minimum_match}..."
+  # for shorter paths
+  starting_minimum_exact_match = start_word.length / 2
+  starting_minimum_match = start_word.length / 2
 
-    # load the dictionary for all words of X length
-    dictionary = Dictionary.new(start_word.length, start_word, end_word, minimum_match)
+  # for faster execution
+  # starting_minimum_exact_match = 0
+  # starting_minimum_match = 3
 
-    fail "Word '#{start_word}' is not in the dictionary" unless dictionary.words.include?(start_word)
-    fail "Word '#{end_word}' is not in the dictionary" unless dictionary.words.include?(end_word)
+  starting_minimum_exact_match.downto(0).each do |minimum_match|
+    starting_minimum_match.downto(minimum_match).each do |minimum_exact_match|
 
-    finder = WordFinder.new(dictionary)
+      puts "trying #{minimum_match}/#{minimum_exact_match}..."
 
-    # now use a* to find the shortest path
-    result = finder.a_star(start_word, end_word)
-    return result if result != nil
+      # load the dictionary for all words of X length
+      dictionary = Dictionary.new(start_word.length, start_word, end_word, minimum_match, minimum_exact_match)
+      # puts "dictionary has #{dictionary.words.count} words"
+
+      fail "Word '#{start_word}' is not in the dictionary" unless dictionary.words.include?(start_word)
+      fail "Word '#{end_word}' is not in the dictionary" unless dictionary.words.include?(end_word)
+
+      finder = WordFinder.new(dictionary)
+
+      # now use a* to find the shortest path
+      # start from the word with the most neighbours
+      if finder.neighbours(end_word).length > finder.neighbours(start_word).length
+        result = finder.a_star(end_word, start_word)
+        return result.reverse if result != nil
+      else
+        result = finder.a_star(start_word, end_word)
+        return result if result != nil
+      end
+    end
   end
 
   fail "Could not find a path"
@@ -38,6 +56,7 @@ end
 result = find_path(start_word, end_word)
 
 puts "result = #{result}"
+puts "(#{result.count} nodes)"
 
 # Things that don't improve performance
 # 1. Loading the dictionary in the WordFinder for each neighbour
