@@ -55,6 +55,6 @@ class AStar
       total_path << current_node
     end
 
-    total_path
+    total_path.reverse
   end
 end
