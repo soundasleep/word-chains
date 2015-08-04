@@ -15,16 +15,28 @@ if start_word.length != end_word.length
   fail "Those two words are not the same length"
 end
 
-# load the dictionary for all words of X length
-dictionary = Dictionary.new(start_word.length, start_word, end_word)
+def find_path(start_word, end_word)
+  (start_word.length - 1).downto(1).each do |minimum_match|
+    puts "trying #{minimum_match}..."
 
-fail "Word '#{start_word}' is not in the dictionary" unless dictionary.words.include?(start_word)
-fail "Word '#{end_word}' is not in the dictionary" unless dictionary.words.include?(end_word)
+    # load the dictionary for all words of X length
+    dictionary = Dictionary.new(start_word.length, start_word, end_word, minimum_match)
 
-finder = WordFinder.new(dictionary)
+    fail "Word '#{start_word}' is not in the dictionary" unless dictionary.words.include?(start_word)
+    fail "Word '#{end_word}' is not in the dictionary" unless dictionary.words.include?(end_word)
 
-# now use a* to find the shortest path
-result = finder.a_star(start_word, end_word)
+    finder = WordFinder.new(dictionary)
+
+    # now use a* to find the shortest path
+    result = finder.a_star(start_word, end_word)
+    return result if result != nil
+  end
+
+  fail "Could not find a path"
+end
+
+result = find_path(start_word, end_word)
+
 puts "result = #{result}"
 
 # Things that don't improve performance

@@ -47,7 +47,8 @@ class AStar
       end
     end
 
-    fail "Could not find a path"
+    #fail "Could not find a path"
+    nil
   end
 
   def reconstruct_path(came_from, current_node)

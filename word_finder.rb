@@ -28,6 +28,13 @@ class WordFinder < AStar
         (a[2] == b[2] ? 1 : 0) +
         (a[3] == b[3] ? 1 : 0) +
         (a[4] == b[4] ? 1 : 0)
+    elsif @length == 6
+      (a[0] == b[0] ? 1 : 0) +
+        (a[1] == b[1] ? 1 : 0) +
+        (a[2] == b[2] ? 1 : 0) +
+        (a[3] == b[3] ? 1 : 0) +
+        (a[4] == b[4] ? 1 : 0) +
+        (a[5] == b[5] ? 1 : 0)
     else
       remaining_characters_in_common(a, b)
     end
