@@ -9,7 +9,7 @@ class AStar
     @goal = goal
 
     closed_set = Set.new
-    open_set = Set.new([start])
+    open_set = Set.new([start])   # TODO could use SortedSet instead of Set
     came_from = {}
 
     g_score = {}

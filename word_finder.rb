@@ -8,7 +8,8 @@ class WordFinder < AStar
   end
 
   def estimate_distance(start, goal)
-    distance_between(start, goal) # + (1 / (1 + neighbours(start).count))
+    distance_between(start, goal)
+     # + (1 / (1 + neighbours(start).count))
   end
 
   def distance_between(a, b)
