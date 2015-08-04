@@ -7,7 +7,7 @@ require_relative "word_finder"
 start_word = ARGV[0]
 end_word = ARGV[1]
 
-if !(start_word || end_word)
+if !(start_word && end_word)
   fail "Expected arguments: [start_word] [end_word]"
 end
 
