@@ -16,6 +16,7 @@ class Dictionary
         # a character within the start or target words seems to work??
         # the higher the limit, the longer chains you will get,
         # but the faster the algorithm will work
+        line.downcase!
         if line.length - 1 == length &&
             all_lowercase(line) &&
             (calculate_characters_in_common(a, line) > minimum_exact_match || calculate_characters_in_common(b, line) > minimum_exact_match) &&
